@@ -76,6 +76,25 @@ export default function SidebarV2(props: any) {
                   </div>
                 </Link>
               ))}
+
+
+               {superAdminNavItems.map((item) => (
+                    <Link href={item.href} key={item.label}>
+                      <div
+                        className={`nav-item ${
+                          activeLink === item.label ? "active" : ""
+                        }`}
+                      >
+                        <span>
+                          <i
+                            className={item.icon}
+                            style={{ color: "#414651", fontSize: 24 }}
+                          ></i>
+                        </span>
+                        <span>{item.label}</span>
+                      </div>
+                    </Link>
+                  ))}
             </nav>
 
             <div className="nav-divider" />
@@ -109,39 +128,7 @@ export default function SidebarV2(props: any) {
               ))}
             </nav>
 
-            {superAdminNavItems && superAdminNavItems.length > 0 && (
-              <SuperAdminFeature>
-                <nav className="nav-section">
-                  <span
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 500,
-                      color: "#AFB5D9",
-                      marginBottom: 8,
-                    }}
-                  >
-                    ADMIN MENU
-                  </span>
-                  {superAdminNavItems.map((item) => (
-                    <Link href={item.href} key={item.label}>
-                      <div
-                        className={`nav-item ${
-                          activeLink === item.label ? "active" : ""
-                        }`}
-                      >
-                        <span>
-                          <i
-                            className={item.icon}
-                            style={{ color: "#414651", fontSize: 24 }}
-                          ></i>
-                        </span>
-                        <span>{item.label}</span>
-                      </div>
-                    </Link>
-                  ))}
-                </nav>
-              </SuperAdminFeature>
-            )}
+            
 
             {/* Footer */}
             <div>
@@ -151,7 +138,8 @@ export default function SidebarV2(props: any) {
                   flexDirection: "column",
                   alignItems: "center",
                   gap: 4,
-                  marginBottom: "20px",
+                  marginTop: "160px",
+                  marginBottom: "10px"
                 }}
               >
                 <span
