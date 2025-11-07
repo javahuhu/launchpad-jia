@@ -57,11 +57,6 @@ export default function Layout({ children }) {
       href: "/recruiter-dashboard/inbox",
       icon: "la la-envelope",
     },
-    {
-      label: "Email Automation [Beta]",
-      href: "/recruiter-dashboard/email-automation",
-      icon: "la la-cubes",
-    },
   ];
 
   // Check active link from the url
