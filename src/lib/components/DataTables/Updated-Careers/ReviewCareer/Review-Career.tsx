@@ -1,13 +1,15 @@
-// pipelinescreen.tsx
+// reviewcareer.tsx
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { useAppContext } from "@/lib/context/AppContext";
 import { useLocalStorage } from "../../../../hooks/useLocalStorage";
 import { errorToast, candidateActionToast } from "@/lib/Utils";
 import Careertile from "../ReviewCareer/careertile";
-import AIinterviewtile from "../ReviewCareer/AIinterviewtile";
+import CVScreen from "./cvscreeningtile";
+import InterviewAI from "./interviewAI";
+import PipelineStage from "./reviewpipeline";
 
 type Status = "Published" | "Unpublished";
 type Member = {
@@ -68,7 +70,6 @@ export default function reviewcareer({
         }));
     }, [initialFormData]);
 
-
     const CV_SCREENING_OPTIONS = ["Good Fit and above", "Only Strong Fit", "No Automatic Promotion"];
     const [AIScreening, setAIScreening] = useState<string>(CV_SCREENING_OPTIONS[0]);
     const [AIinterviewsecretprompt, setAIinterviewsecretprompt] = useState<string>("");
@@ -80,7 +81,7 @@ export default function reviewcareer({
     const [aiQuestionsError, setAiQuestionsError] = useState<string | null>(null);
     const [aiSecretError, setAiSecretError] = useState<string | null>(null);
 
-    const [activeStep] = useState(4);
+    const [activeStep] = useState(5);
     const steps = [
         { number: 1, title: "Career Details & Team Access" },
         { number: 2, title: "CV Review & Pre-screening" },
@@ -238,12 +239,8 @@ export default function reviewcareer({
         }
     };
 
-
-
-
     return (
         <>
-
             {/* Header */}
             <div className="add-career-header">
                 <div className="header-left">
@@ -262,7 +259,47 @@ export default function reviewcareer({
                     >
                         Save as Unpublished
                     </button>
-                    <button className="btn-continue" onClick={handleSaveAndContinue} disabled={loading}>Save and Continue <i className="la la-arrow-right" /></button>
+                    <button
+                        className="btn-continue"
+                        onClick={handleSaveAndContinue}
+                        disabled={loading}
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 12,
+                            padding: "12px 22px",
+                            background: "#0f1724",
+                            color: "#fff",
+                            borderRadius: 999,
+                            border: "none",
+                            boxShadow: "0 6px 18px rgba(2,6,23,0.45)",
+                            cursor: loading ? "not-allowed" : "pointer",
+                            fontWeight: 700,
+                            fontSize: 16,
+                            lineHeight: 1,
+                            transition: "transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease",
+                            opacity: loading ? 0.7 : 1,
+                            marginBottom: 5
+                        }}
+                    >
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style={{ display: "block", marginRight: 8 }}
+                        >
+                            <path
+                                d="M7.5 12.3l2.3 2.3 6.2-6.7"
+                                stroke="#fff"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                        Publish
+                    </button>
                 </div>
             </div>
 
@@ -288,8 +325,22 @@ export default function reviewcareer({
                     );
                 })}
             </div>
-            <Careertile />
-            <AIinterviewtile/>
+
+            {/* Pass the live form data and members into the tile so it shows the current form */}
+            <Careertile data={formData} members={initialMembers ?? []} careerId={careerId} />
+
+            {/* ✨ FIX: pass careerId into CVScreen so it fetches and displays the saved CV review data */}
+            <CVScreen careerId={careerId} />
+
+
+            <InterviewAI
+                careerId={careerId}
+                initialFormData={formData}
+                initialMembers={initialMembers}
+                onBack={() => onBack?.()}
+                onNext={() => onNext?.()}
+            />
+            <PipelineStage />
         </>
     );
 }

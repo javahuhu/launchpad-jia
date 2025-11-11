@@ -195,7 +195,6 @@ export default function CareerForm({ career, formType, setShowEditModal, onCreat
         maximumSalary: isNaN(Number(maximumSalary)) ? null : Number(maximumSalary),
         country,
         province,
-        // Backwards compatibility
         location: city,
         status,
         employmentType,

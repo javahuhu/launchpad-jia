@@ -1,0 +1,202 @@
+:root {
+  --blue-wrap: #eef6ff;
+  --card-bg: #ffffff;
+  --border: #e6e9ee;
+  --muted: #6b7280;
+  --text: #0f1724;
+  --subtext: #475467;
+  --dash: #eef2f7;
+  --pill-blue: #e7f0ff;
+  --pill-border: rgba(59,130,246,0.16);
+  --radius: 14px;
+  --font-stack: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+/* outer blue wrap (matches career tile style) */
+.ai-outer-wrap {
+  font-family: var(--font-stack);
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 3px;
+  background: linear-gradient(180deg, var(--blue-wrap), #f1f7ff 60%);
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(16,24,40,0.03);
+}
+
+/* inner container that contains blue header + white card */
+.ai-card-wrap {
+  border-radius: 12px;
+  overflow: visible;
+}
+
+/* Blue header row */
+.ai-blue-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: transparent;
+}
+
+/* chevron button (left) */
+.ai-chevron-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+.ai-chevron { transform: rotate(180deg); transition: transform 180ms ease; }
+.ai-chevron.up { transform: rotate(0deg); }
+
+/* title in the blue header */
+.ai-header-title {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* small white circular edit button on the blue area */
+.ai-edit-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: none;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.06);
+  cursor: pointer;
+}
+
+/* white card that appears when open */
+.ai-white-card {
+  margin: 12px 10px 16px 10px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(16,24,40,0.04);
+  padding: 14px 18px;
+  color: var(--subtext);
+  font-size: 14px;
+}
+
+/* top block: CV Screening label + auto-endorse text + pill */
+.ai-top-block {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.ai-top-left { min-width: 0; }
+.ai-top-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.ai-top-text {
+  color: var(--subtext);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* pill (light blue) and "and above" */
+.ai-top-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.ai-pill {
+  background: var(--pill-blue);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text);
+  border: 1px solid var(--pill-border);
+}
+.ai-and {
+  color: var(--subtext);
+  font-size: 14px;
+}
+
+/* divider (dashed) */
+.ai-divider {
+  height: 1px;
+  border-top: 1px dashed var(--dash);
+  margin: 10px 0 14px 0;
+}
+
+/* secret prompt */
+.ai-secret-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.ai-star { color: #f472b6; font-size: 14px; line-height: 1; }
+.ai-secret-list {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+  color: var(--subtext);
+  line-height: 1.7;
+}
+
+/* questions header */
+.ai-questions-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+.ai-questions-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.ai-questions-count {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid #f3f6fa;
+}
+
+/* questions list */
+.ai-questions-list {
+  margin: 6px 0 0 18px;
+  padding: 0;
+  color: var(--subtext);
+  line-height: 1.75;
+}
+.ai-question-options {
+  margin: 6px 0 0 18px;
+  padding: 0;
+  list-style: disc;
+}
+
+/* small screens */
+@media (max-width: 720px) {
+  .ai-outer-wrap { margin: 12px; padding: 8px; }
+  .ai-white-card { margin: 10px; padding: 12px; }
+  .ai-edit-circle { width: 32px; height: 32px; }
+  .ai-pill { display: inline-block; padding: 3px 8px; }
+  .ai-top-right { gap: 6px; }
+}

@@ -1,3 +1,4 @@
+// AddNewCareerForm.tsx
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
@@ -13,8 +14,7 @@ import PipelineScreen from "../Pipeline/PipelineStage";
 import ReviewCareer from "../ReviewCareer/Review-Career";
 import AIinterview from "../AIInterviewSetup/interviewAI";
 import philippineCitiesAndProvinces from "../../../../../../public/philippines-locations.json";
-import { GET } from '@/app/api/get-careers/route'
-
+import CVScreeningTile from '@/lib/components/DataTables/Updated-Careers/CV Review&Pre-screening/CVScreening'
 /* ---------- Types ---------- */
 type Status = "Published" | "Unpublished" | "active" | "inactive";
 type Errors = Partial<Record<
@@ -122,7 +122,7 @@ function TeamAccessAdd() {
   const [query, setQuery] = useState("");
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const results = useMemo(() => {
+  const results = React.useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return TA_DIRECTORY.slice(0, 12);
     return TA_DIRECTORY.filter(
@@ -287,30 +287,29 @@ function TeamAccessWarningIfNoOwner() {
   if (hasOwner) return null;
 
   return (
-        <div style={{ width: '100%' }}>
-
-    <div className="ta-error-alert" role="alert" aria-live="polite" style={{
-      display: "flex",
-      alignItems: "start",
-      backgroundColor: "#fff5f5",
-      color: "#c53030",
-      borderRadius: "8px",
-      fontSize: "13px",
-      marginBottom: "12px",
-      gap: "8px",
-      width: "100%", // Add this
-      marginLeft: 0, // Ensure no left margin
-      marginRight: 0, // Ensure no right margin
-    }}>
-      <span className="ta-alert-icon" aria-hidden>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 9v4" stroke="#c53030" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M12 17h.01" stroke="#c53030" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke="#c53030" strokeWidth="1.0" strokeLinejoin="round" fill="none" />
-        </svg>
-      </span>
-      <span className="ta-alert-text">Career must have a job owner. Please assign a job owner.</span>
-    </div>
+    <div style={{ width: '100%' }}>
+      <div className="ta-error-alert" role="alert" aria-live="polite" style={{
+        display: "flex",
+        alignItems: "start",
+        backgroundColor: "#fff5f5",
+        color: "#c53030",
+        borderRadius: "8px",
+        fontSize: "13px",
+        marginBottom: "12px",
+        gap: "8px",
+        width: "100%",
+        marginLeft: 0,
+        marginRight: 0,
+      }}>
+        <span className="ta-alert-icon" aria-hidden>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 9v4" stroke="#c53030" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 17h.01" stroke="#c53030" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke="#c53030" strokeWidth="1.0" strokeLinejoin="round" fill="none" />
+          </svg>
+        </span>
+        <span className="ta-alert-text">Career must have a job owner. Please assign a job owner.</span>
+      </div>
     </div>
   );
 }
@@ -334,6 +333,11 @@ export default function AddNewCareerForm() {
     jobDescription: "",
   });
 
+  // --------- NEW lifted CV/Screening state (shared between Step2 and preview) ----------
+  const [cvScreening, setCvScreening] = useState<string>("Good Fit and above");
+  const [cvSecretPrompt, setCvSecretPrompt] = useState<string>("");
+  const [preScreenQuestions, setPreScreenQuestions] = useState<string[]>([]);
+
   const [activeStep, setActiveStep] = useState(1);
   const steps = [
     { number: 1, title: "Career Details & Team Access" },
@@ -355,13 +359,11 @@ export default function AddNewCareerForm() {
 
   useEffect(() => {
     const parseProvinces = () => {
-      // philippineCitiesAndProvinces is expected to have shape { provinces: [...], cities: [...] }
       const provinces = (philippineCitiesAndProvinces as any).provinces || [];
       const cities = (philippineCitiesAndProvinces as any).cities || [];
 
       setProvinceList(provinces);
 
-      // If no state chosen yet, pick the first province as default
       const defaultProvince = provinces && provinces.length > 0 ? provinces[0] : null;
       if (!formData.state && defaultProvince) {
         setFormData((prev) => ({ ...prev, state: defaultProvince.name }));
@@ -371,7 +373,6 @@ export default function AddNewCareerForm() {
           setFormData((prev) => ({ ...prev, city: filteredCities[0].name }));
         }
       } else if (formData.state) {
-        // if state already has value (e.g., user interacted), populate corresponding cities
         const provinceObj = provinces.find((p: any) => p.name === formData.state);
         const provinceKey = provinceObj?.key;
         if (provinceKey) {
@@ -385,12 +386,9 @@ export default function AddNewCareerForm() {
     };
 
     parseProvinces();
-    // We intentionally do NOT include formData in deps to avoid overwriting user selections repeatedly.
-    // This effect should run when component mounts or when the JSON changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // When user changes state, update the cityList and default city
   const handleStateChange = (stateName: string) => {
     setFormData((prev) => ({ ...prev, state: stateName, city: "" }));
 
@@ -538,7 +536,7 @@ export default function AddNewCareerForm() {
       const payload = {
         jobTitle: formData.jobTitle,
         description: formData.jobDescription,
-        questions: [], // integrate your InterviewQuestionGenerator output if available
+        questions: [],
         lastEditedBy: { name: user?.name, email: user?.email, image: user?.image },
         createdBy: { name: user?.name, email: user?.email, image: user?.image },
         screeningSetting: null,
@@ -559,8 +557,6 @@ export default function AddNewCareerForm() {
 
       const created = await createCareer(payload);
 
-      // --- Normalize returned id(s) and store locally so Step 2 can update the same career ---
-      // The add-career route normally returns insertedId, career, or both. Try several variants:
       const maybeInsertedId =
         (created && (created.insertedId || (created.insertedId && created.insertedId.toString()))) ||
         (created && created.insertedId && String(created.insertedId)) ||
@@ -573,11 +569,9 @@ export default function AddNewCareerForm() {
         setLocalCareerId(String(maybeInsertedId));
         console.log("handleSaveAndContinue: stored localCareerId =", String(maybeInsertedId));
       } else {
-        // fallback: some servers return the whole career doc; attempt to read from created.career
         console.warn("handleSaveAndContinue: could not find insertedId in create response:", created);
       }
 
-      // user feedback
       if (slotsFull) {
         candidateActionToast(
           "Job limit reached. Saved as Unpublished.",
@@ -592,7 +586,7 @@ export default function AddNewCareerForm() {
         );
       }
 
-      // Move to Step 2 (CV Review). CVReviewAndScreening will receive careerId={localCareerId}
+      // Move to Step 2 (CV Review). CVReviewAndScreening will receive careerId and controlled props
       setActiveStep(2);
     } catch (error) {
       console.error("Error saving career:", error);
@@ -649,7 +643,6 @@ export default function AddNewCareerForm() {
 
   /* ---------- Render ---------- */
 
-  // helper: render step 1 (career details)
   const renderStep1 = () => (
     <>
       {/* Header */}
@@ -919,7 +912,6 @@ export default function AddNewCareerForm() {
           <div className="blue-wrap">
             <h2 className="section-title">3. Team Access</h2>
             <div className="white-inner">
-              {/* Wrap the Team Access UI with provider that uses teamState */}
               <TAContext.Provider value={teamState}>
                 <div className="team-access">
                   <div className="ta-header">
@@ -1010,6 +1002,12 @@ export default function AddNewCareerForm() {
       careerId={localCareerId}
       initialFormData={formData}
       initialMembers={teamState.members}
+      cvScreening={cvScreening}
+      setCvScreening={setCvScreening}
+      cvSecretPrompt={cvSecretPrompt}
+      setCvSecretPrompt={setCvSecretPrompt}
+      preScreenQuestions={preScreenQuestions}
+      setPreScreenQuestions={setPreScreenQuestions}
       onBack={() => setActiveStep(1)}
       onNext={() => setActiveStep(3)}
     />
@@ -1036,16 +1034,18 @@ export default function AddNewCareerForm() {
   );
 
   const renderStep5 = () => (
-    <ReviewCareer
-      careerId={localCareerId}
-      initialFormData={formData}
-      initialMembers={teamState.members}
-      onBack={() => setActiveStep(4)}
-      onNext={() => setActiveStep(6)}
-    />
+    <>
+      
+      <ReviewCareer
+        careerId={localCareerId}
+        initialFormData={formData}
+        initialMembers={teamState.members}
+        onBack={() => setActiveStep(4)}
+        onNext={() => setActiveStep(6)}
+      />
+      
+    </>
   );
-
-
 
   return (
     <>
@@ -1054,7 +1054,6 @@ export default function AddNewCareerForm() {
       {activeStep === 3 && renderStep3()}
       {activeStep === 4 && renderStep4()}
       {activeStep === 5 && renderStep5()}
-      {/* future steps (3..5) can be added similarly */}
     </>
   );
 }

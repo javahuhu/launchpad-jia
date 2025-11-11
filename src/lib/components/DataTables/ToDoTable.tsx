@@ -22,7 +22,12 @@ const tableHeaderStyle: any = {
     color: "#717680",
 }
 
-export default function ToDoTable({ taskType, initialLoadRef }: { taskType: string, initialLoadRef: React.RefObject<boolean> }) {
+
+export default function ToDoTable({ taskType, initialLoadRef }: { 
+    taskType: string, 
+    initialLoadRef: React.MutableRefObject<boolean> 
+}) {
+    
     const { orgID, user } = useAppContext();
     const [candidates, setCandidates] = useState([]);
     const [isLoading, setLoading] = useState(true);

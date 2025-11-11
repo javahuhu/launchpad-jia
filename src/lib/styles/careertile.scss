@@ -1,261 +1,226 @@
-/* CareerTile.css
-   Styles to precisely match the uploaded UI card:
-*/
-
 :root{
+  --blue-wrap: #eef4ff;
+  --blue-accent: #3b83f600;
   --card-bg: #ffffff;
   --border: #e6e9ee;
   --muted: #667085;
   --text: #101827;
   --subtext: #475467;
   --light-border: #f1f5f9;
-  --dash: #eef2f7;
-  --radius: 12px;
+  --row-divider: #eef2f6;
+  --radius: 14px;
   --font-stack: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-.career-tile-outer {
+/* outer blue wrap */
+.career-tile-blue-wrap {
   font-family: var(--font-stack);
-  max-width: 780px;
-  margin: 18px;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0px;
+  background: linear-gradient(180deg, var(--blue-wrap), #eef6ff 60%);
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(14,30,60,0.04);
 }
 
-/* Card */
-.career-tile {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 2px rgba(16,24,40,0.04);
-  overflow: hidden;
-  transition: box-shadow 220ms ease, border-color 200ms ease;
+/* inner container */
+.career-tile-inner {
+  border-radius: 12px;
+  transition: all 180ms ease;
+  padding: 6px;
+  background: transparent;
 }
 
-/* open state */
-.career-tile.open {
-  box-shadow: 0 6px 20px rgba(16,24,40,0.06);
-  border-color: #dfe7ff;
-}
-
-/* header row that contains button and edit icon */
+/* HEADER - blue area */
 .header-row {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  position: relative;
-}
-
-/* the big clickable header area (left) */
-.header-btn {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 16px 18px;
-  width: 100%;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  text-align: left;
-}
-
-/* small edit button top-right */
-.edit-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  border: 0;
-  background: #fff;
-  width: 34px;
-  height: 34px;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 999px;
+  gap: 12px;
+  padding: 8px 10px;
 }
 
-/* left icon circle */
-.job-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  background: #eef2ff;
-  color: #3730a3;
+/* small chevron button (no big container) */
+.small-chevron {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  font-size: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: var(--blue-accent);
+  border: 0;
+  padding: 0;
   flex-shrink: 0;
+  box-shadow: none;
+  cursor: pointer;
 }
+.small-chevron .chev { transition: transform 200ms ease; transform-origin: center; }
+.small-chevron .chev.chev-up { transform: rotate(180deg); }   /* open = up */
+.small-chevron .chev.chev-down { transform: rotate(0deg); }  /* closed = down */
 
-/* title and subtitle */
-.career-tile h3 {
-  margin: 0;
-  font-size: 16px;
+/* header title centered-left */
+.header-title {
+  flex: 1;
+  font-size: 15px;
   font-weight: 600;
-  color: var(--text);
-  line-height: 1.15;
+  color: #0f1724;
+  padding-left: 6px;
 }
 
-.subtitle {
-  margin-top: 4px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* right side controls (pill and chevron) */
-.right-controls {
+/* right side controls inside blue wrap */
+.header-right {
   display: flex;
   gap: 10px;
   align-items: center;
-  opacity: 0.95;
 }
 
-.pill {
+/* small pill */
+.pill.small {
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 12px;
-  background: #fbfbfb;
-  border: 1px solid var(--light-border);
-  color: #334155;
+  color: #fff;
+  background: rgba(255,255,255,0.06);
+  border: none;
 }
 
-/* Dashed separator and fields grid */
-.fields {
-  margin-top: 8px;
-  padding: 12px 18px 18px 18px;
-  border-top: 1px dashed var(--dash);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 36px;
-  font-size: 14px;
-  color: var(--subtext);
+/* small edit icon circle (on blue) */
+.icon-edit {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255, 255, 255);
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
 }
 
-/* field label and value */
+/* white card content */
+.white-card {
+  margin-top: 12px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 0;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(16,24,40,0.04);
+  overflow: hidden;
+}
+
+/* generic field row with divider */
+.field-row {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--row-divider);
+  background: transparent;
+}
+
+/* job title solo */
+.field-row.solo .field-label { margin-bottom: 8px; }
 .field-label {
   font-size: 12px;
   color: #94a3b8;
-  margin-bottom: 6px;
-  font-weight: 600;
+  font-weight: 700;
 }
-
 .field-value {
   color: #0f1724;
-  font-size: 14px;
+  font-size: 15px;
+  margin-top: 4px;
 }
 
-/* collapsed footer (if needed) */
-.collapsed-footer {
-  margin-top: 12px;
-  padding: 12px 18px;
-  border-top: 1px solid var(--light-border);
-  display: flex;
-  justify-content: space-between;
-  color: #6b7280;
-  font-size: 14px;
+/* three-column grid used for the three rows described */
+.grid-three {
+  display: grid;
+  grid-template-columns: 1fr 1fr 220px;
+  gap: 20px;
+  align-items: center;
 }
 
-/* expanded area that contains description and lists */
+/* responsive fallback */
+@media (max-width: 900px) {
+  .grid-three { grid-template-columns: 1fr 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .grid-three { grid-template-columns: 1fr; }
+  .header-title { font-size: 14px; }
+}
+
+/* expanded area content */
 .expanded-area {
-  padding: 14px 18px 20px 18px;
-  border-top: 1px solid var(--light-border);
+  padding: 16px 20px 20px 20px;
   color: var(--subtext);
   font-size: 14px;
 }
 
-.section-title {
-  font-size: 14px;
+/* Team Access styles (spaced rows) */
+.team-access-section {
+  border-top: 1px solid var(--light-border);
+  padding-top: 16px;
+}
+
+.team-title {
+  font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text);
-  margin: 0 0 8px 0;
+  color: #0f1724;
+  margin-bottom: 12px;
 }
 
-/* lists & paragraphs */
-.career-tile p {
-  margin: 0;
-  line-height: 1.6;
-  color: var(--subtext);
+/* the list: each team row with spacing */
+.team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px; /* increased spacing between members */
 }
 
-.career-tile ul {
-  margin: 0 0 0 18px;
-  padding: 0;
-  list-style: disc;
-  line-height: 1.7;
-  color: var(--subtext);
-}
-
-/* Team access */
-.team-access {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--light-border);
+.team-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-/* avatars and member details */
-.avatar-stack {
+.team-left {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.avatar {
-  width: 36px;
-  height: 36px;
+.team-avatar {
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
-  background: #f8fafc;
-  border: 1px solid var(--light-border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size: 12px;
-  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
   font-weight: 600;
   flex-shrink: 0;
 }
 
-/* member details are hidden on small screens like the reference */
-.member-details {
-  display: none;
-}
-
-@media (min-width: 720px) {
-  .member-details { display: block; margin-left: 6px; }
-}
-
-/* member name and email */
-.member-name {
-  font-size: 14px;
+.team-meta .team-name, .team-name {
+  font-size: 0.875rem;
   font-weight: 600;
-  color: #101827;
+  color: #0f1724;
 }
 
-.member-email {
-  font-size: 12px;
-  color: var(--muted);
+.team-meta .team-email, .team-email {
+  font-size: 0.875rem;
+  color: #475467;
 }
 
-/* role label on right */
-.member-role {
-  margin-left: auto;
-  text-align: right;
-  font-size: 13px;
-  color: var(--muted);
+.you-note {
+  color: #6b7280;
+  font-weight: 400;
+  margin-left: 6px;
 }
 
-/* focus ring for keyboard users */
-.header-btn:focus-visible {
-  outline: 3px solid rgba(99,102,241,0.12);
-  border-radius: 8px;
+.team-role {
+  font-size: 0.875rem;
+  color: #475467;
+  flex-shrink: 0;
 }
 
-/* responsive tweaks */
-@media (max-width: 520px) {
-  .fields { grid-template-columns: 1fr; gap: 10px 12px; }
-  .right-controls { display: none; }
-  .career-tile-outer { margin: 12px; }
-}
+/* small tweaks for empty column */
+.field-col.empty { opacity: 0; pointer-events: none; }
