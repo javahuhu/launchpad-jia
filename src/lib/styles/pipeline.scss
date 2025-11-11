@@ -1,0 +1,356 @@
+/* pipeline.scss - visual styles for connected rail + inner card */
+
+/* Header, title & header controls (pills) */
+.add-career-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  .header-title {
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.pipeline-subtitle {
+  color: #9aa1a8;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+/* Pipeline header row */
+.pipeline-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+.pipeline-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+}
+
+.pipeline-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #0f172a;
+}
+
+.pipeline-subtitle-left {
+  font-size: 13px;
+  color: #6b7280;
+  max-width: 460px;
+  line-height: 1.4;
+}
+
+.pipeline-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+/* Pill buttons */
+.btn-restore,
+.btn-copy {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.btn-restore .icon-left { width: 18px; height: 18px; flex-shrink: 0; color: #374151; }
+.btn-copy { padding-right: 44px; padding-left: 16px; }
+.btn-copy .caret-wrapper { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); display: inline-flex; width: 28px; height: 28px; border-radius: 999px; align-items: center; justify-content: center; }
+.btn-copy:hover .caret-wrapper { background: rgba(15,23,42,0.03); }
+
+/* Hover / active */
+.btn-restore:hover, .btn-copy:hover { background: #f9fafb; border-color: #cbd5e1; }
+.btn-restore:active, .btn-copy:active { background: #f3f4f6; border-color: #94a3b8; }
+
+/* ---- MAIN BOARD: fixed height + horizontal scroll ---- */
+.pipeline-board {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 12px 20px 28px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 800px;
+  min-height: 520px;
+  box-sizing: border-box;
+  background: transparent;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+/* column stack groups top rail + inner card */
+.column-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  flex: 0 0 320px;
+  width: 320px;
+  box-sizing: border-box;
+  position: relative;
+  height: 100%;
+}
+
+/* top faint rounded rail */
+.column-top-rail {
+  width: 110%;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.rail-inner {
+  width: calc(100% - 4px);
+  height: 100%;
+  border-radius: 12px;
+  border: 2px dashed rgba(156,163,175,0.16);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  box-sizing: border-box;
+  color: rgba(15,23,42,0.18);
+  background: transparent;
+}
+.rail-lock { color: rgba(15,23,42,0.18); }
+.rail-label { font-weight:700; color: rgb(0, 0, 0); }
+
+/* small bridge connecting rail and inner card */
+.rail-bridge {
+  width: 90px;
+  height: 18px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid rgba(15,23,42,0.02);
+  margin-top: -12px;
+  z-index: 10;
+  box-shadow: 0 1px 0 rgba(15,23,42,0.02);
+}
+
+/* inner visible card */
+.pipeline-column-inner {
+  width: 100%;
+  min-height: 550px;
+  height: 360px;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 18px 16px;
+  box-sizing: border-box;
+  margin-top: -20px;
+  box-shadow: 0 6px 18px rgba(10,15,30,0.03);
+  border: 1px solid rgba(15,23,42,0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 8;
+  overflow: hidden;
+}
+.locked-inner { background: #f6f8fa; }
+.custom-inner { background: #f8fafc; }
+
+/* column head */
+.column-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.col-left { display: flex; align-items: center; gap: 12px; }
+.stage-icon { color: #9ca3af; flex-shrink: 0; }
+
+/* title + help icon grouped */
+.col-title-wrapper { display: flex; align-items: center; gap: 8px; }
+.col-title-text { font-weight:700; font-size:15px; color:#0f1724; }
+.help-container .help-icon { color: #9aa1a8; width: 18px; height: 18px; }
+
+/* lock / more area */
+.col-more { color: #9ca3af; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+.lock-icon { color: #9ca3af; }
+
+/* subtitle for inner card */
+.subtitle-small { color: #9ca3af; font-size: 13px; margin-top: 6px; }
+
+/* substage list and pills */
+.substage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.substage-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 0 0 1px rgba(15,23,42,0.02);
+  border: 1px solid rgba(15,23,42,0.03);
+  font-size: 14px;
+  min-height: 48px;
+}
+.substage-text { color: #1f2937; font-size: 14px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* lightning substage icon (rounded) */
+.substage-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid rgba(156,163,175,0.18);
+  color: #4b5563;
+  transition: all 0.2s ease;
+}
+.substage-card:hover .substage-icon {
+  background: #f3f4f6;
+  border-color: rgba(156,163,175,0.25);
+}
+
+/* connector / plus */
+.pipeline-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 360px;
+}
+.connector-rail {
+  width: 70px;
+  height: 635px;
+  border-radius: 20px;
+  border: 3px dashed rgba(156, 163, 175, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: transparent;
+  margin-top: 290px;
+}
+.connector-plus {
+  width:44px;
+  height:44px;
+  border-radius:999px;
+  border:2px dashed rgba(156,163,175,0.24);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  color:#4b5563;
+  background:#fff;
+  cursor:pointer;
+  box-shadow:0 1px 0 rgba(15,23,42,0.02);
+}
+
+/* ---- optional: drag visuals ---- */
+.column-stack.is-dragging {
+  opacity: 0.85;
+  transform: scale(0.995);
+  box-shadow: 0 12px 30px rgba(10, 15, 30, 0.08);
+  z-index: 40;
+}
+
+.column-stack.is-drag-over {
+  outline: 3px dashed rgba(59,130,246,0.12);
+  outline-offset: -12px;
+  border-radius: 14px;
+}
+
+/* show a faint handle when reorder enabled (subtle) */
+.col-more .more-dots {
+  font-size: 18px;
+  line-height: 1;
+  color: #6b7280;
+}
+
+
+/* drag handle to left of rail label (three rows, two columns of dots) */
+.rail-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* rail handle container */
+.rail-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  margin-left: 4px;
+  margin-right: 6px;
+}
+
+/* slightly move existing lock svg to align with handle */
+.rail-lock {
+  color: rgba(15,23,42,0.18);
+  flex-shrink: 0;
+}
+
+/* make rail label a bit larger and vertically centered with the handle */
+.rail-label {
+  font-weight: 700;
+  color: rgba(15,23,42,0.18);
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* when rail is draggable (text = "Drag to reorder stage"), nudge spacing */
+.column-top-rail .rail-inner .rail-handle + .rail-lock {
+  margin-left: 2px;
+}
+
+/* reduce hit area conflicts on small screens */
+@media (max-width: 900px) {
+  .rail-handle { width: 22px; height: 22px; margin-right: 6px; }
+  .rail-label { font-size: 14px; }
+}
+
+
+
+/* small responsive tweaks */
+@media (max-width: 1100px) {
+  .pipeline-board { padding-bottom: 12px; gap: 16px; height: 520px; min-height: 520px; }
+  .column-stack { flex: 0 0 220px; width: 220px; }
+  .rail-inner, .pipeline-column-inner { width: 100%; }
+  .connector-rail { height: 320px; }
+  .pipeline-connector { width: 64px; height: 320px; }
+  .pipeline-column-inner { height: 320px; min-height: 320px; }
+}
