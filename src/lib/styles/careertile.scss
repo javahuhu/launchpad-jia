@@ -1,0 +1,261 @@
+/* CareerTile.css
+   Styles to precisely match the uploaded UI card:
+*/
+
+:root{
+  --card-bg: #ffffff;
+  --border: #e6e9ee;
+  --muted: #667085;
+  --text: #101827;
+  --subtext: #475467;
+  --light-border: #f1f5f9;
+  --dash: #eef2f7;
+  --radius: 12px;
+  --font-stack: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.career-tile-outer {
+  font-family: var(--font-stack);
+  max-width: 780px;
+  margin: 18px;
+}
+
+/* Card */
+.career-tile {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgba(16,24,40,0.04);
+  overflow: hidden;
+  transition: box-shadow 220ms ease, border-color 200ms ease;
+}
+
+/* open state */
+.career-tile.open {
+  box-shadow: 0 6px 20px rgba(16,24,40,0.06);
+  border-color: #dfe7ff;
+}
+
+/* header row that contains button and edit icon */
+.header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  position: relative;
+}
+
+/* the big clickable header area (left) */
+.header-btn {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* small edit button top-right */
+.edit-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: 0;
+  background: #fff;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+}
+
+/* left icon circle */
+.job-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* title and subtitle */
+.career-tile h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.15;
+}
+
+.subtitle {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* right side controls (pill and chevron) */
+.right-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  opacity: 0.95;
+}
+
+.pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: #fbfbfb;
+  border: 1px solid var(--light-border);
+  color: #334155;
+}
+
+/* Dashed separator and fields grid */
+.fields {
+  margin-top: 8px;
+  padding: 12px 18px 18px 18px;
+  border-top: 1px dashed var(--dash);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 36px;
+  font-size: 14px;
+  color: var(--subtext);
+}
+
+/* field label and value */
+.field-label {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.field-value {
+  color: #0f1724;
+  font-size: 14px;
+}
+
+/* collapsed footer (if needed) */
+.collapsed-footer {
+  margin-top: 12px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--light-border);
+  display: flex;
+  justify-content: space-between;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* expanded area that contains description and lists */
+.expanded-area {
+  padding: 14px 18px 20px 18px;
+  border-top: 1px solid var(--light-border);
+  color: var(--subtext);
+  font-size: 14px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 8px 0;
+}
+
+/* lists & paragraphs */
+.career-tile p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--subtext);
+}
+
+.career-tile ul {
+  margin: 0 0 0 18px;
+  padding: 0;
+  list-style: disc;
+  line-height: 1.7;
+  color: var(--subtext);
+}
+
+/* Team access */
+.team-access {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--light-border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* avatars and member details */
+.avatar-stack {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid var(--light-border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 12px;
+  color: #374151;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* member details are hidden on small screens like the reference */
+.member-details {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .member-details { display: block; margin-left: 6px; }
+}
+
+/* member name and email */
+.member-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #101827;
+}
+
+.member-email {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* role label on right */
+.member-role {
+  margin-left: auto;
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* focus ring for keyboard users */
+.header-btn:focus-visible {
+  outline: 3px solid rgba(99,102,241,0.12);
+  border-radius: 8px;
+}
+
+/* responsive tweaks */
+@media (max-width: 520px) {
+  .fields { grid-template-columns: 1fr; gap: 10px 12px; }
+  .right-controls { display: none; }
+  .career-tile-outer { margin: 12px; }
+}
