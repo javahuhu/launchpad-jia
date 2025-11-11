@@ -7,5 +7,6 @@ export const superAdminList = [
   "miguel.fermin@whitecloak.com",
   "michelle.cruz@whitecloak.com",
   "anne.liangco@whitecloak.com",
-  "cgelera3@gmail.com",  
+  "cgelera3@gmail.com", 
+  "markjoshua@gmail.com"
 ];
