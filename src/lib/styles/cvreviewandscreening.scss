@@ -1,0 +1,1007 @@
+/* ---------- CV review small utility styles ---------- */
+
+
+/* reduce width and make pill */
+.select-input {
+  min-width: 160px !important;
+  max-width: 320px;
+  padding: 6px 12px;
+  border-radius: 7px;
+  height: 36px;
+  appearance: none; /* remove native arrow where supported */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #374151 50%),
+                    linear-gradient(135deg, #374151 50%, transparent 50%),
+                    linear-gradient(to right, transparent, transparent);
+  background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px), 100% 0;
+  background-size: 6px 6px, 6px 6px, 2.5em 2.5em;
+  background-repeat: no-repeat;
+}
+
+/* add a small check on the left when the select has a value (visual only) */
+.select-input.has-value {
+  padding-left: 32px;
+  background-image:
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"><text x="0" y="10" font-size="12">✓</text></svg>'),
+    linear-gradient(45deg, transparent 50%, #374151 50%),
+    linear-gradient(135deg, #374151 50%, transparent 50%),
+    linear-gradient(to right, transparent, transparent);
+  background-position: 8px center, calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px), 100% 0;
+  background-size: 20px 20px, 6px 6px, 6px 6px, 2.5em 2.5em;
+  background-repeat: no-repeat;
+}
+
+/* small font */
+.select-input { font-size: 16px; }
+
+
+
+/* Tooltip container */
+.cv-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.cv-tooltip-trigger {
+  background: #fff; 
+  border: 1.5px solid #9ca3af; 
+  color: #9ca3af; 
+  font-size: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+
+.cv-tooltip-trigger:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Tooltip box styling */
+.cv-tooltip-box {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  width: 470px;
+  background: #111827; /* dark slate background */
+  color: #fff;
+  font-size: 13.5px;
+  line-height: 1.4;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 50;
+  text-align: left;
+}
+
+/* Tooltip arrow (small triangle) */
+.cv-tooltip-box::after,
+.cv-tooltip-arrow {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #111827 transparent transparent transparent;
+}
+
+/* Show tooltip on hover */
+.cv-tooltip:hover .cv-tooltip-box {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* keep pre-screen suggestion look consistent */
+.suggestion-row {
+  background: #fff;
+  border: 1px solid #f3f5f7;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+/* ensure textarea in CV card matches style */
+.white-inner textarea.textarea-input {
+  min-height: 110px;
+  max-height: 180px;
+  border-radius: 8px;
+}
+
+/* small tweaks for Add custom button style */
+.btn-continue {
+  background-color: #0f1724;
+  color: #fff;
+  border-radius: 20px;
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+  margin-right: 25px;
+}
+
+/* keep .btn-unpublished used in small buttons consistent */
+.btn-unpublished {
+  border: 1px solid #e5e7eb;
+  color: #666666;
+  padding: 8px 16px 8px 16px;
+  margin-left: 0px;
+  margin-bottom: 5px;
+  border-radius: 30px;
+  font-size: 8px;
+  align-items: center;
+  background: white;
+  cursor: pointer;
+}
+
+/* ensure the tips card width fits nicely */
+.tips-sidebar {
+  width: 340px;
+}
+
+/* CV Review styling (add to cvreviewandscreening.scss) */
+.cv-review-wrap {
+  .cv-review-inner {
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  .muted {
+    margin-top: 6px;
+    color: #6b7280;
+    font-size: 13px;
+  }
+
+  .divider {
+    height: 1px;
+    background: #eef0f2;
+    margin: 18px 0;
+    border-radius: 1px;
+  }
+
+  /* Custom select */
+  .custom-select {
+    position: relative;
+    display: inline-block;
+    min-width: 320px;
+
+    .cs-toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 10px 12px;
+      background: #fff;
+      border: 1px solid #eef0f2;
+      border-radius: 8px;
+      box-shadow: none;
+      cursor: pointer;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .cs-left { display:flex; align-items:center; }
+    .cs-value { flex: 1; color: #111827; }
+    .cs-caret { color: #9ca3af; }
+
+    .cs-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 320px;
+      background: #fff;
+      border: 1px solid #eef0f2;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+      z-index: 40;
+      padding: 8px;
+    }
+
+    .cs-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      color: #111827;
+      font-size: 14px;
+    }
+
+    .cs-item:hover { background: #f8fafc; }
+
+    .cs-item.is-selected { font-weight: 600; }
+
+    .cs-item-left { width: 18px; display:flex; align-items:center; justify-content:center; }
+    .cs-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #e5e7eb;
+    }
+  }
+
+  /* tooltip */
+  .cv-tooltip { position: relative; display:inline-block; }
+  .cv-tooltip .btn-unpublished.small {
+    width: 34px; height: 34px; padding: 0; border-radius: 8px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cv-tooltip-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 260px;
+    background: #111827;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    z-index: 50;
+  }
+  .cv-tooltip:hover .cv-tooltip-content { display:block; }
+
+  /* secret prompt area */
+  .cv-secret {
+    margin-top: 6px;
+  }
+  .cv-secret-title {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .sparkle { font-size: 18px; margin-right: 4px; }
+
+  .cv-secret-heading {
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .optional { color: #9ca3af; font-weight: 600; font-size: 13px; margin-left: 8px; }
+
+  .cv-secret-help {
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 13px;
+  }
+
+  .cv-secret-box {
+    margin-top: 12px;
+    border-radius: 8px;
+    border: 1px solid #eef0f2;
+    background: #fff;
+    padding: 10px;
+    max-height: 180px;
+    overflow: hidden;
+  }
+
+  .cv-secret-textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 8px;
+    min-height: 120px;
+    max-height: 160px;
+    overflow: auto;
+  }
+
+  /* show subtle inner shadow left arrow like image (optional) */
+  .cv-secret-box::before {
+    content: "";
+    position: absolute;
+  }
+}
+
+/* ---------------- Pre-Screening styles (scoped) ---------------- */
+.pre-screen-wrap .white-inner {
+  padding: 16px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+/* empty state box: "No pre-screening questions added yet." (kept original boxed UI) */
+.pre-screen-wrap .pre-screen-empty {
+  padding: 18px;
+  border: 1px solid #eef0f2;
+  border-radius: 10px;
+  color: #6b7280;
+  background: #fff;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+/* header helper (align title + add button) */
+.pre-screen-wrap .pre-screen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ensure the "+ Add custom" button looks correct while scoped and apply requested size */
+.pre-screen-wrap .actions .btn-continue {
+  /* sizing per your spec — applied as min-width to preserve label */
+  min-width: 55px;            /* Hug (55px) */
+  height: 36px;               /* Height (36px) */
+  padding: 8px 14px;          /* Top 8px, Right 14px, Bottom 8px, Left 14px */
+  border-radius: 20px;        /* keep existing pill radius */
+  border: 1px solid #e5e7eb;  /* 1px border */
+  background-color: #0f1724;
+  color: #fff;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* small hover/focus */
+.pre-screen-wrap .actions .btn-continue:hover,
+.pre-screen-wrap .actions .btn-continue:focus {
+  background-color: #0b1220;
+  outline: none;
+}
+
+/* section title within this block */
+.pre-screen-wrap .pre-screen-title {
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #111827;
+  font-size: 15px;
+}
+
+/* suggested questions list container */
+.pre-screen-wrap .pre-screen-suggestions {
+  display: grid;
+  gap: 10px;
+}
+
+/* each suggested item (card) */
+.pre-screen-wrap .pre-screen-suggestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #f3f5f7;
+  background: #fff;
+  transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+}
+
+/* hover subtle lift */
+.pre-screen-wrap .pre-screen-suggestion:hover {
+  background: #fbfcfd;
+  border-color: #eef3f6;
+  transform: translateY(-1px);
+}
+
+/* left column inside suggestion: title + desc */
+.pre-screen-wrap .pre-screen-suggestion .left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0; /* allow text truncation if needed */
+  margin-right: 12px;
+}
+
+/* title and desc styles */
+.pre-screen-wrap .pre-screen-suggestion .left .title {
+  font-weight: 600;
+  color: #111827;
+  font-size: 14px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pre-screen-wrap .pre-screen-suggestion .left .desc {
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* right column: Add button container */
+.pre-screen-wrap .pre-screen-suggestion .right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  flex: 0 0 auto;
+}
+
+/* scoped Add button — reuse look but scoped to avoid global change */
+.pre-screen-wrap .pre-screen-suggestion .right .btn-unpublished {
+  border-radius: 18px;
+  padding: 8px 14px;
+  font-size: 13px;
+  min-width: 64px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+}
+
+/* Add button hover */
+.pre-screen-wrap .pre-screen-suggestion .right .btn-unpublished:hover {
+  background: #f8fafc;
+}
+
+/* list of added pre-screen questions (cards) */
+.pre-screen-wrap .added-list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* individual added question card */
+.pre-screen-wrap .added-item {
+  border: 1px solid #eef0f2;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+}
+
+/* question text wrap */
+.pre-screen-wrap .added-item .question-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #111827;
+  font-size: 14px;
+  max-width: calc(100% - 88px);
+}
+
+/* remove/trash button (scoped) */
+.pre-screen-wrap .ta-trash {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 13px;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.pre-screen-wrap .ta-trash:hover {
+  background: rgba(239, 68, 68, 0.06);
+}
+
+/* top actions container (scoped) so .btn-continue style stays consistent globally */
+.pre-screen-wrap .actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Divider below empty box */
+.pre-screen-wrap .pre-screen-divider {
+  height: 1px;
+  background: #eef0f2;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  border-radius: 1px;
+}
+
+.pre-screen-empty-text{
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+/* responsive tweaks */
+@media (max-width: 520px) {
+  .pre-screen-wrap .pre-screen-suggestion .left .title,
+  .pre-screen-wrap .pre-screen-suggestion .left .desc {
+    white-space: normal;
+  }
+  .pre-screen-wrap .pre-screen-suggestion {
+    flex-direction: row;
+    align-items: center;
+  }
+  .pre-screen-wrap .pre-screen-suggestion .left { max-width: 70%; }
+  .pre-screen-wrap .pre-screen-suggestion .right .btn-unpublished { min-width: 56px; padding: 6px 10px; }
+  .pre-screen-wrap .added-item .question-text { max-width: calc(100% - 72px); }
+}
+
+
+.sparkle-icon {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  animation: sparkle-float 2.4s ease-in-out infinite;
+}
+
+
+@keyframes sparkle-float {
+  0%   { transform: translateY(0) scale(1); opacity: 0.95; }
+  50%  { transform: translateY(-2px) scale(1.05); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0.95; }
+}
+
+
+.section-title-tips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+}
+
+.sparkle-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Gradient bulb icon */
+.tips-icon {
+  display: inline-flex;
+  width: 30px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  animation: floatGlow 3s ease-in-out infinite;
+}
+
+.tips-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* subtle floating motion */
+@keyframes floatGlow {
+  0% { transform: translateY(0) scale(1); opacity: 0.95; }
+  50% { transform: translateY(-2px) scale(1.05); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0.95; }
+}
+
+
+/* PreScreening.css - place next to PreScreening.tsx */
+
+
+/* Header row */
+.ps-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.ps-title { font-size: 16px; font-weight: 700; margin: 0; color: #0f1724; }
+.ps-optional { color: #9ca3af; font-weight: 500; font-size: 13px; margin-left: 8px; }
+.ps-add-custom {
+  background: #0f1724;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+
+
+/* list of cards (each card styled like screenshot) */
+.ps-questions { display: grid; gap: 16px; }
+
+/* empty */
+.ps-empty { color: #6b7280; padding: 16px; background: white; border-radius: 8px; border: 1px solid #eef0f2; }
+
+.ps-row {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+/* Left column that holds the draggable handle */
+.ps-handle-col {
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* The main card area */
+.ps-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e8eef3;
+  overflow: visible;
+  box-shadow: 0 1px 0 rgba(15, 23, 36, 0.02);
+  display: block;
+}
+
+/* Slightly offset handle outside the card border */
+.ps-handle-col .ps-drag-handle {
+  transform: translateX(-12px);
+}
+
+
+.ps-drag-handle {
+  display: grid;
+  grid-template-columns: repeat(2, 8px); 
+  grid-auto-rows: 5px;                  
+  gap: 6px 8px;                          
+  align-items: center;
+  justify-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 6px;
+  cursor: grab;
+  user-select: none;
+  z-index: 20;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+/* hover effect */
+.ps-drag-handle:hover {
+  background: rgba(15, 23, 42, 0.04);
+}
+
+/* grabbing cursor on drag */
+.ps-drag-handle:active {
+  cursor: grabbing;
+}
+
+/* each dot */
+.ps-drag-handle .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9ca3af;  /* soft gray like screenshot */
+  display: block;
+}
+
+/* drag visual feedback */
+.ps-row.is-dragging .ps-card {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+
+
+
+
+.ps-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #e9ecf1;
+  border-bottom: 1px solid #eef3f6;
+}
+
+
+
+/* title input inside top */
+.ps-card-title-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-weight: 600;
+  font-size: 15px;
+  color: #111827;
+  flex: 1;
+  padding: 6px 0;
+}
+
+
+.ps-select-wrap {
+  display: flex;
+  justify-content: flex-end;
+  width: 232px;
+}
+
+/* container to position the icon + select */
+.ps-type-select-container {
+  position: relative;
+  width: 232px;
+  height: 40px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* the actual select */
+.ps-type-select {
+  width: 100%;
+  height: 100%;
+  padding: 10px 38px 10px 38px; /* space for icon (left) + arrow (right) */
+  border: none;
+  border-radius: 50%;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+/* left circle arrow icon */
+.ps-select-icon {
+  position: absolute;
+  left: 12px;
+  width: 20px;
+  height: 20px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%236b7280' stroke-width='2' viewBox='0 0 24 24'><circle cx='12' cy='12' r='9' stroke='%236b7280' stroke-width='1.8'/><path stroke-linecap='round' stroke-linejoin='round' d='M8 10l4 4 4-4'/></svg>") no-repeat center center;
+  background-size: 20px;
+  pointer-events: none;
+}
+
+/* right-side arrow */
+.ps-type-select-container::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%236b7280' stroke-width='2' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' d='M6 9l6 6 6-6'/></svg>") no-repeat center center;
+  background-size: 16px;
+  pointer-events: none;
+}
+
+/* focus and hover effects */
+.ps-type-select-container:hover {
+  border-color: #d1d5db;
+}
+
+.ps-type-select-container:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+
+/* card body */
+.ps-card-body { padding: 16px; }
+/* container of all options */
+.ps-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* option wrapper */
+.ps-option {
+  display: flex;
+  align-items: center;
+}
+
+
+.ps-option-combined {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  border: 2px solid #e5e7eb;      
+  border-radius: 10px;
+  background-color: #fff;
+  overflow: hidden;               
+  box-sizing: border-box;
+  margin-right: 10px;
+}
+
+
+.ps-option-num {
+  width: 48px;
+  min-width: 48px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111827;
+  font-weight: 600;
+  font-size: 14px;
+  border-right: 1px solid #e5e7eb; 
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+
+.ps-option-input {
+  flex: 1;
+  height: 100%;
+  padding: 0 14px;
+  border: none;                  
+  outline: none;
+  font-size: 14px;
+  color: #111827;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* placeholder style */
+.ps-option-input::placeholder {
+  color: #9ca3af;
+}
+
+/* focus style: blue border glow */
+.ps-option-combined:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* small round remove button at right of option */
+.ps-opt-remove {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #dedfdf;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.ps-add-option {
+  margin-left: -80%; 
+  margin-top: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #374151;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+
+.ps-add-option,
+.ps-add-option:focus,
+.ps-add-option:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.ps-add-option:focus-visible {
+  outline: 2px solid rgba(37,99,235,0.12); /* soft blue ring */
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+
+/* range layout */
+.ps-range-row { display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+.ps-range-col { flex: 1; min-width: 180px; }
+.ps-range-label { font-size: 13px; color: #6b7280; margin-bottom: 6px; display: block; }
+.ps-input-symbol { position: relative; }
+.ps-curr { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6b7280; pointer-events: none; }
+.ps-range-input {
+  width: 100%;
+  height: 44px;
+  padding-left: 36px;
+  border-radius: 8px;
+  border: 1px solid #eef0f2;
+  outline: none;
+  font-size: 14px;
+}
+.ps-currency-col { width: 120px; min-width: 120px; }
+.ps-range-select { width: 100%; height: 44px; border-radius: 8px; border: 1px solid #eef0f2; background: #fff; }
+
+
+.ps-placeholder { color: #6b7280; padding: 8px 0; }
+
+
+.ps-card-footer {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #f3f6f8;
+}
+
+/* Delete button */
+.ps-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 8px 14px;
+  border-radius: 9999px; /* full pill */
+  border: 1px solid #fca5a5; /* light red border */
+  background-color: #ffffff;
+  color: #b91c1c; /* red text & icon */
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+/* Trash icon */
+.ps-delete-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Hover / Focus state */
+.ps-delete:hover,
+.ps-delete:focus-visible {
+  background-color: #fef2f2;
+  border-color: #f87171;
+  color: #b91c1c;
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
+}
+
+/* Optional pressed animation */
+.ps-delete:active {
+  transform: scale(0.98);
+}
+
+/* suggestions area */
+.ps-suggestions { margin-top: 18px; }
+.ps-sugg-title { font-weight: 700; margin-bottom: 10px; }
+.ps-sugg-list { display: grid; gap: 10px; }
+.ps-sugg-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #f3f5f7;
+  background: #fff;
+}
+.ps-sugg-head { font-weight: 600; }
+.ps-sugg-desc { color: #6b7280; font-size: 13px; margin-top: 4px; }
+.ps-add { padding: 8px 14px; border-radius: 18px; border: 1px solid #e5e7eb; background: #fff; color: #374151; cursor: pointer; }
+.ps-added { padding: 8px 14px; border-radius: 18px; border: 1px solid #eef0f2; background: #fff; color: #6b7280; cursor: default; }
+
+
+
+
+
+
+/* responsive */
+@media (max-width: 720px) {
+  .ps-range-row { flex-direction: column; }
+  .ps-select-wrap { min-width: 120px; }
+  .ps-card-top { padding: 12px; }
+}
+
+
