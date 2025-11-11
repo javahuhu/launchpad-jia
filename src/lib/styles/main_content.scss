@@ -1,0 +1,128 @@
+#panel {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: clamp(720px, 90vw, 1600px);
+
+  min-height: calc(100vh - 40px);
+  height: auto;
+
+  padding: clamp(16px, 2.5vw, 32px);
+
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: max-width 240ms ease, padding 240ms ease;
+}
+
+@media (max-width: 640px) {
+  #panel {
+    width: calc(100% - 32px);
+    max-width: none;
+    padding: 16px;
+    border-radius: 12px;
+    min-height: auto;
+    margin: 16px auto;
+  }
+}
+
+/* From 800px up to 2750px */
+
+@media (min-width: 1000px) {
+  #panel {
+    max-width: 700px;
+  }
+}
+@media (min-width: 1100px) {
+  #panel {
+    max-width: 800px;
+  }
+}
+@media (min-width: 1200px) {
+  #panel {
+    max-width: 900px;
+  }
+}
+@media (min-width: 1300px) {
+  #panel {
+    max-width: 1000px;
+  }
+}
+@media (min-width: 1400px) {
+  #panel {
+    max-width: 1100px;
+  }
+}
+@media (min-width: 1500px) {
+  #panel {
+    max-width: 1200px;
+  }
+}
+@media (min-width: 1600px) {
+  #panel {
+    max-width: 1300px;
+  }
+}
+@media (min-width: 1700px) {
+  #panel {
+    max-width: 1400px;
+  }
+}
+@media (min-width: 1800px) {
+  #panel {
+    max-width: 1500px;
+  }
+}
+@media (min-width: 1900px) {
+  #panel {
+    max-width: 1600px;
+  }
+}
+@media (min-width: 2000px) {
+  #panel {
+    max-width: 1700px;
+  }
+}
+@media (min-width: 2100px) {
+  #panel {
+    max-width: 1800px;
+  }
+}
+@media (min-width: 2200px) {
+  #panel {
+    max-width: 1900px;
+  }
+}
+@media (min-width: 2300px) {
+  #panel {
+    max-width: 2000px;
+  }
+}
+@media (min-width: 2400px) {
+  #panel {
+    max-width: 2100px;
+  }
+}
+@media (min-width: 2500px) {
+  #panel {
+    max-width: 2200px;
+  }
+}
+@media (min-width: 2600px) {
+  #panel {
+    max-width: 2300px;
+  }
+}
+@media (min-width: 2700px) {
+  #panel {
+    max-width: 2400px;
+  }
+}
+@media (min-width: 2750px) {
+  #panel {
+    max-width: 2450px;
+  }
+}
