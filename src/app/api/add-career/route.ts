@@ -1,119 +1,145 @@
+// app/api/add-career/route.ts  (Next.js app router example)
 import { NextResponse } from "next/server";
-import connectMongoDB from "@/lib/mongoDB/mongoDB";
+import connectMongoDB from "@/lib/mongoDB/mongoDB"; // adjust path if different
 import { guid } from "@/lib/Utils";
 import { ObjectId } from "mongodb";
 
 export async function POST(request: Request) {
   try {
-    const {
-      jobTitle,
-      description,
-      questions,
-      lastEditedBy,
-      createdBy,
-      screeningSetting,
-      orgID,
-      requireVideo,
-      location,
-      workSetup,
-      workSetupRemarks,
-      status,
-      salaryNegotiable,
-      minimumSalary,
-      maximumSalary,
-      country,
-      province,
-      employmentType,
-    } = await request.json();
-    // Validate required fields
-    if (!jobTitle || !description || !questions || !location || !workSetup) {
-      return NextResponse.json(
+    const body = await request.json();
+
+    const required = [
+      "jobTitle",
+      "description",
+      "questions",
+      "location",
+      "workSetup",
+      "orgID",
+      "createdBy",
+    ];
+    for (const k of required) {
+      if (!body[k]) {
+        return NextResponse.json(
+          { error: `${k} is required` },
+          { status: 400 }
+        );
+      }
+    }
+
+    let orgObjectId: ObjectId | null = null;
+    try {
+      orgObjectId = new ObjectId(body.orgID);
+    } catch (err) {
+      return NextResponse.json({ error: "Invalid orgID" }, { status: 400 });
+    }
+
+    const { db, client } = await connectMongoDB();
+
+    const orgDetails = await db
+      .collection("organizations")
+      .aggregate([
+        { $match: { _id: orgObjectId } },
         {
-          error:
-            "Job title, description, questions, location and work setup are required",
+          $lookup: {
+            from: "organization-plans",
+            let: { planId: "$planId" },
+            pipeline: [
+              { $addFields: { _idStr: { $toString: "$_id" } } },
+              {
+                $match: {
+                  $expr: { $eq: ["$_idStr", { $toString: "$$planId" }] },
+                },
+              },
+            ],
+            as: "plan",
+          },
         },
+        { $unwind: { path: "$plan", preserveNullAndEmptyArrays: true } },
+      ])
+      .toArray();
+
+    if (!orgDetails || orgDetails.length === 0) {
+      try {
+        await client.close();
+      } catch (_) {}
+      return NextResponse.json(
+        { error: "Organization not found" },
+        { status: 404 }
+      );
+    }
+
+    const planJobLimit = Number(orgDetails[0]?.plan?.jobLimit ?? 3);
+    const extraSlots = Number(orgDetails[0]?.extraJobSlots ?? 0);
+    const jobLimitTotal = isNaN(planJobLimit)
+      ? 3
+      : planJobLimit + (isNaN(extraSlots) ? 0 : extraSlots);
+
+    const totalActiveCareers = await db.collection("careers").countDocuments({
+      orgID: body.orgID,
+      status: { $in: ["active", "Published"] },
+    });
+
+    if (totalActiveCareers >= jobLimitTotal) {
+      try {
+        await client.close();
+      } catch (_) {}
+      return NextResponse.json(
+        { error: "You have reached the maximum number of jobs for your plan" },
         { status: 400 }
       );
     }
 
-    const { db } = await connectMongoDB();
-
-    const orgDetails = await db.collection("organizations").aggregate([
-      {
-        $match: {
-          _id: new ObjectId(orgID)
-        }
-      },
-      {
-        $lookup: {
-            from: "organization-plans",
-            let: { planId: "$planId" },
-            pipeline: [
-                {
-                    $addFields: {
-                        _id: { $toString: "$_id" }
-                    }
-                },
-                {
-                    $match: {
-                        $expr: { $eq: ["$_id", "$$planId"] }
-                    }
-                }
-            ],
-            as: "plan"
-        }
-      },
-      {
-        $unwind: "$plan"
-      },
-    ]).toArray();
-
-    if (!orgDetails || orgDetails.length === 0) {
-      return NextResponse.json({ error: "Organization not found" }, { status: 404 });
-    }
-
-    const totalActiveCareers = await db.collection("careers").countDocuments({ orgID, status: "active" });
-
-    if (totalActiveCareers >= (orgDetails[0].plan.jobLimit + (orgDetails[0].extraJobSlots || 0))) {
-      return NextResponse.json({ error: "You have reached the maximum number of jobs for your plan" }, { status: 400 });
-    }
-
-    const career = {
+    const careerDoc = {
       id: guid(),
-      jobTitle,
-      description,
-      questions,
-      location,
-      workSetup,
-      workSetupRemarks,
+      jobTitle: body.jobTitle,
+      description: body.description,
+      questions: body.questions,
+      location: body.location,
+      workSetup: body.workSetup,
+      workSetupRemarks: body.workSetupRemarks || null,
       createdAt: new Date(),
       updatedAt: new Date(),
-      lastEditedBy,
-      createdBy,
-      status: status || "active",
-      screeningSetting,
-      orgID,
-      requireVideo,
+      lastEditedBy: body.lastEditedBy || body.createdBy,
+      createdBy: body.createdBy,
+      status: body.status || "active",
+      screeningSetting: body.screeningSetting || null,
+      orgID: body.orgID,
+      requireVideo: !!body.requireVideo,
       lastActivityAt: new Date(),
-      salaryNegotiable,
-      minimumSalary,
-      maximumSalary,
-      country,
-      province,
-      employmentType,
+      salaryNegotiable: !!body.salaryNegotiable,
+      minimumSalary:
+        typeof body.minimumSalary === "number" ? body.minimumSalary : null,
+      maximumSalary:
+        typeof body.maximumSalary === "number" ? body.maximumSalary : null,
+      country: body.country || null,
+      province: body.province || null,
+      employmentType: body.employmentType || null,
+      teamAccess: Array.isArray(body.teamAccess) ? body.teamAccess : [],
     };
 
-    await db.collection("careers").insertOne(career);
+    const result = await db.collection("careers").insertOne(careerDoc);
+
+    try {
+      await client.close();
+    } catch (_) {}
 
     return NextResponse.json({
       message: "Career added successfully",
-      career,
+      career: careerDoc,
+      insertedId: result.insertedId,
     });
-  } catch (error) {
-    console.error("Error adding career:", error);
-    return NextResponse.json(
-      { error: "Failed to add career" },
-      { status: 500 }
-    );
+  } catch (err: any) {
+    console.error("Error in add-career route:", err);
+
+    const isMongoNetError =
+      /timeout|ECONNREFUSED|MongoNetworkError|MongoNetworkTimeoutError/i.test(
+        String(err?.message ?? "")
+      );
+
+    const msg = isMongoNetError
+      ? "Database connection failed. Check your MONGODB_URI and network connectivity."
+      : err?.message ?? "Internal server error";
+
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
