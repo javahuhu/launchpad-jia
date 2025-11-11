@@ -287,15 +287,20 @@ function TeamAccessWarningIfNoOwner() {
   if (hasOwner) return null;
 
   return (
+        <div style={{ width: '100%' }}>
+
     <div className="ta-error-alert" role="alert" aria-live="polite" style={{
       display: "flex",
-      alignItems: "center",
+      alignItems: "start",
       backgroundColor: "#fff5f5",
       color: "#c53030",
       borderRadius: "8px",
       fontSize: "13px",
       marginBottom: "12px",
       gap: "8px",
+      width: "100%", // Add this
+      marginLeft: 0, // Ensure no left margin
+      marginRight: 0, // Ensure no right margin
     }}>
       <span className="ta-alert-icon" aria-hidden>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -305,6 +310,7 @@ function TeamAccessWarningIfNoOwner() {
         </svg>
       </span>
       <span className="ta-alert-text">Career must have a job owner. Please assign a job owner.</span>
+    </div>
     </div>
   );
 }
@@ -1009,7 +1015,7 @@ export default function AddNewCareerForm() {
     />
   );
 
-   const renderStep3 = () => (
+  const renderStep3 = () => (
     <AIinterview
       careerId={localCareerId}
       initialFormData={formData}
