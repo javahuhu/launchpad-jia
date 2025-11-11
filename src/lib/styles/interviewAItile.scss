@@ -1,0 +1,212 @@
+/* AIinterview.css
+   Styles to match the screenshot UI for CV Review & Pre-Screening Questions card
+*/
+
+:root{
+  --card-bg: #ffffff;
+  --border: #e6e9ee;
+  --muted: #667085;
+  --text: #0f1724;
+  --subtext: #475467;
+  --light-border: #f1f5f9;
+  --dash: #eef2f7;
+  --radius: 12px;
+  --font-stack: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.ai-card-outer{
+  font-family: var(--font-stack);
+  max-width: 920px;
+  margin: 20px;
+}
+
+/* Card */
+.ai-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgba(16,24,40,0.04);
+  overflow: hidden;
+  transition: box-shadow 220ms ease, border-color 200ms ease;
+}
+
+/* open state */
+.ai-card.open{
+  border-color: #e9eefc;
+  box-shadow: 0 6px 20px rgba(16,24,40,0.06);
+}
+
+/* Header row */
+.ai-header-row {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* big clickable header */
+.ai-header-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 18px;
+  gap: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* collapse icon */
+.ai-collapse-icon { opacity: 0.9; transform: rotate(180deg); }
+
+/* title and subtitle */
+.ai-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.ai-subtitle {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* right controls: pill area */
+.ai-right-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ai-screen-pill {
+  background: transparent;
+  padding: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.ai-pill-inner {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 4px 9px;
+  background: #eef2ff;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 12px;
+  color: #0f1724;
+}
+
+/* edit icon */
+.ai-edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: none;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* content area */
+.ai-content{
+  padding: 12px 18px 18px 18px;
+  color: var(--subtext);
+  font-size: 14px;
+}
+
+/* secret prompt block */
+.ai-secret {
+  padding: 8px 0;
+}
+
+.ai-secret-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.ai-secret-intro {
+  margin: 0 0 8px 0;
+  color: var(--subtext);
+  font-size: 14px;
+}
+
+/* bullet list in secret prompt */
+.ai-secret-bullets {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+  color: var(--subtext);
+  line-height: 1.7;
+}
+
+/* dashed separator */
+.ai-dashed {
+  height: 1px;
+  background: transparent;
+  border-top: 1px dashed var(--dash);
+  margin: 14px 0;
+}
+
+/* questions header */
+.ai-questions-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.ai-questions-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.ai-questions-count {
+  margin-left: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid var(--light-border);
+}
+
+/* numbered question list */
+.ai-questions-list {
+  margin: 6px 0 0 18px;
+  padding: 0;
+  color: var(--subtext);
+  line-height: 1.75;
+}
+
+.ai-question-item {
+  margin-bottom: 10px;
+}
+
+/* sub-options bullet list for each question */
+.ai-question-options {
+  margin: 6px 0 0 18px;
+  padding: 0;
+  list-style: disc;
+  color: var(--subtext);
+  font-size: 14px;
+}
+
+/* small responsive tweaks */
+@media (max-width: 520px) {
+  .ai-card-outer { margin: 12px; }
+  .ai-content { padding: 10px 12px 14px 12px; }
+  .ai-header-btn { padding: 12px; }
+}
