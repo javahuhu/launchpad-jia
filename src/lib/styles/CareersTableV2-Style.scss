@@ -1,4 +1,3 @@
-
 $chev: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 8 10 12 14 8' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
 .add-career-header {
@@ -131,7 +130,10 @@ $chev: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20'
 
 /* DONE STEP — medium gray border */
 .mcircle.is-done {
-  border-color: #cbd5e1;
+  background: #0f1724; /* dark fill — match your generate button dark color */
+  color: #fff;         /* the check uses currentColor */
+  border: none;
+  box-shadow: none;
 }
 
 /* UPCOMING STEP — light gray border */
@@ -319,18 +321,63 @@ $chev: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20'
   margin-bottom: 16px;
 
   .negotiable-label {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: #6b7280;
-    margin: 0;
+    cursor: pointer;
+    gap: 10px;
+    font-weight: 500;
+    color: #414651;
+    user-select: none;
+  }
+
+  .toggle-switch {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* Slider background */
+  .toggle-slider {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: #d1d5db; /* grayish off state */
+    border-radius: 50px;
+    transition: all 0.3s ease;
     cursor: pointer;
   }
-  .checkbox-input {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
+
+  /* Circular knob */
+  .toggle-slider::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  /* Checked (active) state */
+  .toggle-switch:checked + .toggle-slider {
+    background: linear-gradient(
+      90deg,
+      #fcb2af,
+      #a8c1f6
+    ); /* soft pink to blue */
+  }
+
+  .toggle-switch:checked + .toggle-slider::before {
+    transform: translateX(20px);
+  }
+
+  /* Label text */
+  .toggle-text {
+    font-size: 14px;
+    color: #414651;
   }
 }
 
@@ -645,12 +692,14 @@ $chev: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20'
 /* Card */
 .ta-role-menu {
   position: absolute;
-  top: 48px;
-  left: 0;
-  width: 420px; 
+  left: -220px;
+  width: 420px;
+  bottom: calc(100% + 8px); /* 8px gap above the button */
+  top: auto; /* ensure it doesn't use top */
+  transform-origin: bottom left;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 14px; 
+  border-radius: 14px;
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
   padding: 12px;
   z-index: 60;
@@ -663,21 +712,19 @@ $chev: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20'
   text-align: left;
   background: transparent;
   border: none;
-  border-radius: 12px; 
+  border-radius: 12px;
   cursor: pointer;
-  padding: 16px 44px 16px 16px; 
+  padding: 16px 44px 16px 16px;
   transition: background-color 0.15s ease;
 }
 
 .ta-role-item:hover {
-  background: #f8fafc; 
+  background: #f8fafc;
 }
-
 
 .ta-role-item.is-selected {
-  background: #eef4ff; 
+  background: #eef4ff;
 }
-
 
 .ta-role-item.is-selected::after {
   content: "";
@@ -690,31 +737,27 @@ $chev: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20'
     no-repeat center/20px 20px;
 }
 
-
 .ta-role-top {
-  
   display: block;
 }
 
 .ta-role-title {
-  font-size: 16px; 
-  font-weight: 700; 
+  font-size: 16px;
+  font-weight: 700;
   color: #111827;
   margin: 0 0 6px 0;
 }
 
 .ta-role-desc {
-  font-size: 15px; 
-  line-height: 1.6; 
+  font-size: 15px;
+  line-height: 1.6;
   color: #6b7280;
   margin: 0;
 }
 
-
 .ta-role-item + .ta-role-item {
   margin-top: 8px;
 }
-
 
 .ta-trash {
   width: 44px;
@@ -733,48 +776,42 @@ $chev: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20'
   cursor: not-allowed;
 }
 
-
 .ta-footnote {
   margin-top: 6px;
   color: #6b7280;
   font-size: 12px;
 }
 
-
-
-
 .field-error {
   margin-top: 6px;
   font-size: 12px;
-  color: #ef4444; 
+  color: #ef4444;
 }
-
 
 .text-input.has-error,
 .select-input.has-error,
 .textarea-input.has-error,
 .salary-input.has-error {
   border-color: #ef4444 !important;
-  box-shadow: 0 0 0 1px rgba(239,68,68,.08);
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.08);
 }
 
-
 .steps-modern {
-  padding: 12px 8px 40px; 
+  padding: 12px 8px 40px;
   border-bottom: 1px solid #eef0f2;
   margin-bottom: 50px;
 }
 
-
-.mcircle.is-active { border-color: #111827; }
-
-.mcircle.has-error {
-  border-width: 0 !important;      
-  border-color: transparent !important;
-  background: transparent;            
-  box-shadow: none;
+.mcircle.is-active {
+  border-color: #111827;
 }
 
+.mcircle.has-error {
+  border-width: 0 !important;
+  border-color: transparent !important;
+  background: transparent;
+  box-shadow: none;
+}
 
 .micon-error {
   width: 20px;
@@ -782,6 +819,133 @@ $chev: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20'
   display: inline-block;
   background: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 3l9 16H3L12 3z' stroke='%23ef4444' stroke-width='1.8' fill='%23fff'/%3E%3Ccircle cx='12' cy='10' r='1.2' fill='%23ef4444'/%3E%3Crect x='11.2' y='12' width='1.6' height='4.4' rx='.8' fill='%23ef4444'/%3E%3C/svg%3E")
     no-repeat center/20px 20px;
+}
+
+
+/* Rich Job Description Styling */
+
+.rj-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e7e9ec;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.rj-card-header {
+  font-weight: 700;
+  color: #2f3b45;
+  padding: 16px 18px;
+  border-bottom: 1px solid #f1f3f6;
+  font-size: 16px;
+}
+
+/* The main editable content */
+.rj-editor {
+  min-height: 280px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 18px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2b3a40;
+  background: transparent;
+  outline: none;
+  white-space: pre-wrap;
+}
+
+.rj-editor:empty:before {
+  content: attr(data-placeholder);
+  color: #9aa3b2;
+  pointer-events: none;
+}
+
+/* Divider between input and toolbar */
+.rj-divider {
+  height: 1px;
+  width: 100%;
+  background-color: #d8dbdf;
+}
+
+/* Toolbar section */
+.rj-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.rj-toolbar-sep {
+  width: 1px;
+  height: 20px;
+  background: #e7e9ec;
+  margin: 0 6px;
+}
+
+.rj-toolbar button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #3b444b;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.rj-toolbar button:hover {
+  background: #f6f7fb;
+  color: #111827;
+}
+
+/* Optional: focus and error styles */
+.rj-card:focus-within {
+  border-color: #a7c1ff;
+  box-shadow: 0 0 0 3px rgba(167, 193, 255, 0.2);
+}
+
+.rj-error {
+  border-color: #f7bdbd;
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.08);
+}
+
+.section-title-tips {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+}
+
+.tips-icon {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transform-origin: center;
+  animation: tips-float 3000ms ease-in-out infinite;
+}
+
+.tips-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@keyframes tips-float {
+  0%   { transform: translateY(0) scale(1); opacity: 0.96; }
+  50%  { transform: translateY(-2px) scale(1.03); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0.96; }
+}
+
+.tips-icon svg path[fill^="url"] {
+  filter: drop-shadow(0 2px 6px rgba(165, 180, 252, 0.12));
 }
 
 
