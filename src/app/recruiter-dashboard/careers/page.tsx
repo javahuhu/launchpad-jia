@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import CareersV2Table from "@/lib/components/DataTables/CareersTableV2";
+import CareersV2Table from "@/lib/components/DataTables/Updated-Careers/CareerDetails&TeamAccess/CareersTableV2";
 import HeaderBar from "@/lib/PageComponent/HeaderBar";
 
 export default function () {
